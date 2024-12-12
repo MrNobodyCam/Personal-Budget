@@ -14,13 +14,8 @@ class NotificationScreen extends StatelessWidget {
       body: ListView(
         children: const [
           Header(),
-          SizedBox(height: 10,),
-          NotificationItem(),
-          NotificationItem(),
-          NotificationItem(),
-          NotificationItem(),
-          NotificationItem(),
-          NotificationItem(),
+          SizedBox(height: 25,),
+          NotificationList(),
           SizedBox(height: 20,),
         ],
       ),
@@ -94,6 +89,24 @@ class NotificationItem extends StatelessWidget {
           ),
         ),
       )
+    );
+  }
+}
+
+class NotificationList extends StatelessWidget {
+  const NotificationList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: const EdgeInsets.only(left: 10),
+          child: const Text("07/Dec/2024",style: TextStyle(fontWeight: FontWeight.bold),),
+        ),
+        const NotificationItem(),
+      ],
     );
   }
 }
