@@ -3,7 +3,7 @@ import 'package:personal_budget/screen/transaction/category_card.dart';
 import '../app_bar.dart';
 import '../bottom_bar.dart';
 import 'account.dart';
-import 'expense_item.dart';
+import 'expense_list.dart';
 
 class TransactionScreen extends StatefulWidget {
   const TransactionScreen({super.key});
@@ -18,14 +18,24 @@ class _TransactionScreenState extends State<TransactionScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const TopBar(),
-      body: ListView(
-        children: const [
+      body: Column(
+        children: [
           BalanceCard(),
           CategoryCard(),
-          ExpenseItem(),
+          Text(
+            "All Items",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(child: ExpenseList())
         ],
       ),
-      bottomNavigationBar: const BottomBar(),
+      bottomNavigationBar: const BottomBar(
+        checkSelect: 1,
+      ),
     );
   }
 }

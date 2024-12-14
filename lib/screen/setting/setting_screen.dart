@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:personal_budget/screen/setting/about.dart';
+import 'package:personal_budget/screen/setting/profile.dart';
 import '../app_bar.dart';
 import '../bottom_bar.dart';
 
@@ -34,7 +38,7 @@ class SettingScreen extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: BottomBar(),
+      bottomNavigationBar: BottomBar(checkSelect: 3,),
     );
   }
 }
@@ -57,7 +61,15 @@ class _OptionCardState extends State<OptionCard> {
     }
     return GestureDetector(
       onTap: () {
-        print("Clicked");
+        if (widget.title == "User Profile") {
+          Get.to(ProfileScreen(),
+              transition: Transition.rightToLeft,
+              duration: Duration(milliseconds: 300));
+        } else if (widget.title == "About Section") {
+          Get.to(AboutScreen(),
+              transition: Transition.rightToLeft,
+              duration: Duration(milliseconds: 300));
+        }
       },
       child: Card(
         shadowColor: Colors.black,

@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '../bottom_bar.dart';
 
 class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});
@@ -16,9 +15,7 @@ class _AboutScreenState extends State<AboutScreen> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Scrollable content
           SingleChildScrollView(
-            // Offset for the fixed header
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 35),
               child: const Column(
@@ -190,12 +187,12 @@ class _AboutScreenState extends State<AboutScreen> {
               Row(
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(top: 18),
+                    margin: const EdgeInsets.only(top: 29,left: 10),
                     child: Transform.rotate(
                       angle: pi,
                       child: IconButton(
                         onPressed: () {
-                          print("Arrow clicked");
+                          Navigator.of(context).pop();
                           // Navigator.pop(
                           //     context); // Go back to the previous screen
                         },
@@ -217,7 +214,6 @@ class _AboutScreenState extends State<AboutScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomBar(),
     );
   }
 }

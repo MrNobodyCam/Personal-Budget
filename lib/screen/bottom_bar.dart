@@ -1,19 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:personal_budget/screen/dashboard/dashboard_screen.dart';
+import 'package:personal_budget/screen/report/report_screen.dart';
+import 'package:personal_budget/screen/setting/setting_screen.dart';
+import 'package:personal_budget/screen/transaction/transaction_screen.dart';
 
 class BottomBar extends StatefulWidget {
-  const BottomBar({super.key});
+  const BottomBar({super.key, required this.checkSelect});
+  final int checkSelect;
 
   @override
   State<BottomBar> createState() => _BottomBarState();
 }
 
 class _BottomBarState extends State<BottomBar> {
-  int _selectedIndex = 0;
+  final List<String> icons = [
+    "assets/icon/dashboard.png",
+    "assets/icon/bill.png",
+    "assets/icon/report.png",
+    "assets/icon/setting.png",
+  ];
+  final List<String> selectedIcons = [
+    "assets/icon/dashboard_selected.png",
+    "assets/icon/bill_selected.png",
+    "assets/icon/report_selected.png",
+    "assets/icon/setting_selected.png",
+  ];
 
-  void _onItemTapped(int index) {
+  late int selectedIndex;
+  final List<Widget> screens = [
+    const DashboardScreen(),
+    const TransactionScreen(),
+    const ReportScreen(),
+    const SettingScreen(),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    selectedIndex = widget.checkSelect;
+  }
+
+  void _onItemTapped(int newIndex) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = newIndex;
     });
+
+    Get.offAll(
+          () => screens[newIndex],
+      transition: Transition.noTransition,
+    );
   }
 
   @override
@@ -32,36 +68,17 @@ class _BottomBarState extends State<BottomBar> {
         color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
+          children: List.generate(icons.length, (index) {
+            return IconButton(
               icon: Image.asset(
-                "assets/icon/dashboard.png",
+                selectedIndex == index ? selectedIcons[index] : icons[index],
                 width: 39,
               ),
-              onPressed: () => _onItemTapped(0),
-            ),
-            IconButton(
-              icon: Image.asset(
-                "assets/icon/bill.png",
-                width: 39,
-              ),
-              onPressed: () => _onItemTapped(1),
-            ),
-            IconButton(
-              icon: Image.asset(
-                "assets/icon/report.png",
-                width: 39,
-              ),
-              onPressed: () => _onItemTapped(2),
-            ),
-            IconButton(
-              icon: Image.asset(
-                "assets/icon/setting.png",
-                width: 39,
-              ),
-              onPressed: () => _onItemTapped(3),
-            ),
-          ],
+              onPressed: () {
+                _onItemTapped(index);
+              },
+            );
+          }),
         ),
       ),
     );

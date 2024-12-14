@@ -2,8 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../bottom_bar.dart';
-
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -22,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
                   angle: pi,
                   child: IconButton(
                     onPressed: () {
-                      print("Arrow clicked");
+                      Navigator.of(context).pop();
                     },
                     icon: Image.asset(
                       'assets/icon/arrow.png',
@@ -102,7 +100,6 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomBar(),
     );
   }
 }

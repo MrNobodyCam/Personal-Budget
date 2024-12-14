@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:personal_budget/screen/app_bar.dart';
+import 'package:get/get.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
@@ -10,7 +10,6 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const TopBar(),
       body: ListView(
         children: const [
           Header(),
@@ -33,12 +32,13 @@ class Header extends StatelessWidget {
         Row(
           children: [
             Container(
-              margin: const EdgeInsets.only(left: 10,top: 18),
+              margin: const EdgeInsets.only(left: 10,top: 8),
               child: Transform.rotate(
                 angle: pi,
                 child: IconButton(
                     onPressed: () {
                       print("Button Clicked");
+                      Navigator.of(context).pop();
                     },
                     icon: Image.asset(
                       "assets/icon/arrow.png",
@@ -70,7 +70,8 @@ class NotificationItem extends StatelessWidget {
       color: const Color(0xFFD9D9D9),
       child: InkWell(
         onTap: (){
-          print("Clicked");
+          Navigator.of(context).pop();
+          Get.back;
         },
         child: Container(
           padding: const EdgeInsets.all(10),

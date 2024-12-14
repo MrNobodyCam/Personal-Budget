@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:personal_budget/screen/notification_screen.dart';
+import 'package:personal_budget/screen/setting/profile.dart';
 
+// ignore: constant_identifier_names
 enum Welcome { good_morning, good_afternoon, good_evening }
 
 class TopBar extends StatefulWidget implements PreferredSizeWidget {
@@ -37,6 +41,7 @@ class _TopBarState extends State<TopBar> {
         ],
       ),
       child: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         toolbarHeight: 100,
         title: Row(
@@ -44,10 +49,19 @@ class _TopBarState extends State<TopBar> {
           children: [
             Row(
               children: [
-                const CircleAvatar(
-                  radius: 30,
-                  backgroundImage:
+                GestureDetector(
+                  onTap: (){
+                    Get.to(ProfileScreen(),transition: Transition.native,duration: Duration(milliseconds: 400));
+                  },
+                  child: const CircleAvatar(
+                    radius: 33,
+                    backgroundColor: Colors.black,
+                    child: CircleAvatar(
+                      radius: 30,
+                      backgroundImage:
                       AssetImage("assets/user_data/Kao_Vichet.jpg"),
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Text(
@@ -61,7 +75,11 @@ class _TopBarState extends State<TopBar> {
               ],
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(NotificationScreen(),
+                    transition: Transition.upToDown,
+                    duration: Duration(milliseconds: 400));
+              },
               icon: const Icon(
                 Icons.notifications,
                 color: Colors.black,
