@@ -34,7 +34,7 @@ class _CategoryCardState extends State<CategoryCard> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    "assets/category/soft-drink.png",
+                    "assets/category/all.png",
                     width: 60,
                   ),
                   const Text(

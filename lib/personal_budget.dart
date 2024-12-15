@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:personal_budget/screen/dashboard/dashboard_screen.dart';
 import 'package:personal_budget/screen/start_page.dart';
 
 class PersonalBudget extends StatefulWidget {

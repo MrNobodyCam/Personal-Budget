@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:personal_budget/screen/transaction/set_spending.dart';
+
+import 'add_expense.dart';
 class BalanceCard extends StatefulWidget {
   const BalanceCard({super.key});
 
@@ -41,7 +44,12 @@ class _BalanceCardState extends State<BalanceCard> {
                   height: 35,
                   width: 145,
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context)=> SetSpending(),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFFF8B8B),
                     ),
@@ -74,7 +82,12 @@ class _BalanceCardState extends State<BalanceCard> {
                   height: 35,
                   width: 145,
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AddExpense(),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF4E49B6),
                     ),

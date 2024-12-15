@@ -21,7 +21,6 @@ class StartPage extends StatelessWidget {
               repeat: true,
             ),
           ),
-          const SizedBox(height: 20),
           const Text(
             "Welcome to FinTrack",
             style: TextStyle(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_budget/screen/transaction/detail_expense.dart';
 
 class ExpenseItem extends StatefulWidget {
   const ExpenseItem({super.key});
@@ -20,11 +21,16 @@ class _ExpenseItemState extends State<ExpenseItem> {
         ),
       ),
       color: Colors.white,
-      margin:const EdgeInsets.only(left: 13,right: 13,bottom: 10),
+      margin: const EdgeInsets.only(left: 13, right: 13, bottom: 10),
       child: InkWell(
-        onTap: (){},
+        onTap: () {
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => DetailExpense()
+          );
+        },
         child: Container(
-          padding:const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: const Row(
             children: [
               CircleAvatar(

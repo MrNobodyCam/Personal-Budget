@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:personal_budget/screen/setting/about.dart';
 import 'package:personal_budget/screen/setting/profile.dart';
 import '../app_bar.dart';
