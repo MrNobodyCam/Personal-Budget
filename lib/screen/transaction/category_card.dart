@@ -18,7 +18,7 @@ class _CategoryCardState extends State<CategoryCard> {
           width: 2,
         )
       ),
-      margin: const EdgeInsets.only(left: 13, right: 13, top: 30, bottom: 20),
+      margin: const EdgeInsets.only(left: 13, right: 13, top: 10, bottom: 10),
       color: const Color(0xFFF0F0F0),
       child: Container(
         height: 100,

@@ -49,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10,),
             Container(
-              margin: const EdgeInsets.only(left:  34,right: 141,top: 21),
+              margin: const EdgeInsets.only(left:  34,right: 121,top: 21),
               child: const Row(
                 children: [
                   Text("Username",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
@@ -59,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(left:  34,right: 40,top: 21),
+              margin: const EdgeInsets.only(left:  34,right: 20,top: 21),
               child: const Row(
                 children: [
                   Text("Email",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
@@ -67,8 +67,9 @@ class ProfileScreen extends StatelessWidget {
                   Text("kaovichet11@gmail.com",style: TextStyle(fontSize: 16)),
                 ],
               ),
-            ),Container(
-              margin: const EdgeInsets.only(left:  34,right: 37,top: 21),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left:  34,right: 17,top: 21),
               child: const Row(
                 children: [
                   Text("Address",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
@@ -78,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(left:  34,right: 173,top: 21),
+              margin: const EdgeInsets.only(left:  34,right: 153,top: 21),
               child: const Row(
                 children: [
                   Text("Nickname",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
@@ -88,7 +89,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(left:  34,right: 125,top: 21),
+              margin: const EdgeInsets.only(left:  34,right: 105,top: 21),
               child: const Row(
                 children: [
                   Text("DOB",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),

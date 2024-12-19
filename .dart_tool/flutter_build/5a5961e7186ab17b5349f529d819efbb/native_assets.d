@@ -1,0 +1,1 @@
+ D:\\Kao\ Vichet\\Year\ 3\\Term\ 1\\Fundamental\ of\ Mobile\ Development\\Individual\ Project\ Personal\ Budget\ Management\\personal_budget\\.dart_tool\\flutter_build\\5a5961e7186ab17b5349f529d819efbb\\native_assets.yaml: 

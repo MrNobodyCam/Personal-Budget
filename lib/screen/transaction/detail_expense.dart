@@ -13,13 +13,12 @@ class _DetailExpenseState extends State<DetailExpense> {
     return AlertDialog(
       backgroundColor: Color(0xFFE9E9E9),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-        side: BorderSide(
-          color: Colors.black,
-          width: 5,
-        )
-      ),
-      titlePadding: EdgeInsets.only(left: 20, right: 20),
+          borderRadius: BorderRadius.circular(20),
+          side: BorderSide(
+            color: Colors.black,
+            width: 5,
+          )),
+      titlePadding: EdgeInsets.only(left: 18, right: 18),
       insetPadding: EdgeInsets.only(left: 18, right: 18),
       title: SizedBox(
         width: double.maxFinite,
@@ -41,14 +40,10 @@ class _DetailExpenseState extends State<DetailExpense> {
                       weight: 900,
                     ),
                     style: IconButton.styleFrom(
-                      backgroundColor: Colors.grey[300],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        side: BorderSide(
-                          color: Colors.black
-                        )
-                      )
-                    ),
+                        backgroundColor: Colors.grey[300],
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            side: BorderSide(color: Colors.black))),
                   ),
                 )
               ],
@@ -87,7 +82,7 @@ class _DetailExpenseState extends State<DetailExpense> {
                           TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
-                      width: 230,
+                      width: 220,
                       child: Text(
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
                         style: TextStyle(fontSize: 14),
@@ -120,38 +115,33 @@ class _DetailExpenseState extends State<DetailExpense> {
             ),
             Row(
               children: [
-                Row(
-                  children: [
-                    Text(
-                      "Date : ",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                    ),
-                    Text(
-                      "07/Dec/2024",
-                      style: TextStyle(fontSize: 14),
-                    )
-                  ],
+                Text(
+                  "Category : ",
+                  style:
+                  TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
-                Spacer(),
-                Row(
-                  children: [
-                    Text(
-                      "Category : ",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "Food & Drink",
-                      style: TextStyle(fontSize: 14),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    )
-                  ],
+                Text(
+                  "Food & Drink",
+                  style: TextStyle(fontSize: 14),
+                ),
+                SizedBox(
+                  width: 8,
                 )
               ],
-            )
+            ),
+            SizedBox(height: 10,),
+            Row(
+              children: [
+                Text(
+                  "Date : ",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                ),
+                Text(
+                  "07/Dec/2024",
+                  style: TextStyle(fontSize: 14),
+                )
+              ],
+            ),
           ],
         ),
       ),
@@ -159,21 +149,8 @@ class _DetailExpenseState extends State<DetailExpense> {
       actions: <Widget>[
         ElevatedButton.icon(
           style: ButtonStyle(
-              backgroundColor: WidgetStatePropertyAll(Color(0xFFC30000)),
-              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(color: Color(0xFFC30000))))),
-          onPressed: () {},
-          label: Text(
-            "Delete",
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          icon: Icon(Icons.delete,color: Colors.white,),
-        ),
-        ElevatedButton.icon(
-          style: ButtonStyle(
-            padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 35)),
+              padding:
+                  WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 35)),
               backgroundColor: WidgetStatePropertyAll(Color(0xFF19BE00)),
               shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
@@ -184,7 +161,10 @@ class _DetailExpenseState extends State<DetailExpense> {
             "Edit",
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
           ),
-          icon: Image.asset("assets/icon/edit.png",width: 18,),
+          icon: Image.asset(
+            "assets/icon/edit.png",
+            width: 18,
+          ),
         ),
       ],
     );

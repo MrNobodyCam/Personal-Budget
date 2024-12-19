@@ -4,6 +4,7 @@ import 'package:personal_budget/screen/dashboard/dashboard_screen.dart';
 import 'package:personal_budget/screen/report/report_screen.dart';
 import 'package:personal_budget/screen/setting/setting_screen.dart';
 import 'package:personal_budget/screen/transaction/transaction_screen.dart';
+import 'package:personal_budget/data/data.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key, required this.checkSelect});
@@ -30,7 +31,7 @@ class _BottomBarState extends State<BottomBar> {
   late int selectedIndex;
   final List<Widget> screens = [
     const DashboardScreen(),
-    const TransactionScreen(),
+    TransactionScreen(balance: sharedBalance,listExpense: expenseList,),
     const ReportScreen(),
     const SettingScreen(),
   ];

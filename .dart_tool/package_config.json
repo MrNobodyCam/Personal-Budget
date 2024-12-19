@@ -182,6 +182,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "nested",
+      "rootUri": "file:///C:/Users/kaovi/AppData/Local/Pub/Cache/hosted/pub.dev/nested-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "path",
       "rootUri": "file:///C:/Users/kaovi/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.9.0",
       "packageUri": "lib/",
@@ -196,6 +202,12 @@
     {
       "name": "pie_chart",
       "rootUri": "file:///C:/Users/kaovi/AppData/Local/Pub/Cache/hosted/pub.dev/pie_chart-5.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "provider",
+      "rootUri": "file:///C:/Users/kaovi/AppData/Local/Pub/Cache/hosted/pub.dev/provider-6.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -272,7 +284,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-12-15T06:11:52.491544Z",
+  "generated": "2024-12-18T07:35:10.421820Z",
   "generator": "pub",
   "generatorVersion": "3.5.4",
   "flutterRoot": "file:///C:/flutter",
