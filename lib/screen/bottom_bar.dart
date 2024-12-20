@@ -31,7 +31,7 @@ class _BottomBarState extends State<BottomBar> {
   late int selectedIndex;
   final List<Widget> screens = [
     const DashboardScreen(),
-    TransactionScreen(balance: sharedBalance,listExpense: expenseList,),
+    TransactionScreen(),
     const ReportScreen(),
     const SettingScreen(),
   ];

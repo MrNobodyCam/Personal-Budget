@@ -5,9 +5,8 @@ import 'package:personal_budget/screen/transaction/transaction_screen.dart';
 import 'package:personal_budget/data/data.dart';
 
 class AddExpense extends StatefulWidget {
-  final Function(Expense) onAddExpense;
 
-  const AddExpense({super.key, required this.onAddExpense});
+  const AddExpense({super.key});
 
   @override
   State<AddExpense> createState() => _AddExpenseState();
@@ -20,7 +19,14 @@ class _AddExpenseState extends State<AddExpense> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _amountController = TextEditingController();
-
+  void _addExpense(Expense expense) {
+    setState(() {
+      // widget. += expense.amount;
+      sharedBalance.addExpense(expense.amount);
+      sharedBalance.expenseValue(expenseList);
+      expenseList.addExpense(expense);
+    });
+  }
   void onAdd() {
     if (_formKey.currentState!.validate()) {
       final expense = Expense(
@@ -30,7 +36,7 @@ class _AddExpenseState extends State<AddExpense> {
         amount: double.parse(_amountController.text),
         dateTime: selectDate,
       );
-      widget.onAddExpense(expense);
+      _addExpense(expense);
 
       // Print for debugging
       print(
@@ -41,10 +47,7 @@ class _AddExpenseState extends State<AddExpense> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => TransactionScreen(
-            balance: sharedBalance,
-            listExpense: expenseList,
-          ),
+          builder: (context) => TransactionScreen(),
         ),
       );
     }
@@ -117,8 +120,9 @@ class _AddExpenseState extends State<AddExpense> {
                 const SizedBox(height: 20),
                 Row(
                   children: [
-                    Expanded(
+                    Flexible(
                       child: TextFormField(
+                        maxLength: 25,
                         controller: _titleController,
                         keyboardType: TextInputType.text,
                         decoration: const InputDecoration(labelText: "Title"),
@@ -131,25 +135,31 @@ class _AddExpenseState extends State<AddExpense> {
                       ),
                     ),
                     const SizedBox(width: 10),
-                    Expanded(
-                      child: DropdownButtonFormField<Categorys>(
-                        value: _selectCategory,
-                        items: Categorys.values.map((category) {
-                          return DropdownMenuItem<Categorys>(
-                            value: category,
-                            child: Text(category.toString().split('.').last),
-                          );
-                        }).toList(),
-                        onChanged: (Categorys? newValue) {
-                          setState(() {
-                            _selectCategory = newValue!;
-                          });
-                        },
-                      ),
+                    Flexible(
+                      // width: 20,
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 12),
+                        child: DropdownButtonFormField<Categorys>(
+                          value: _selectCategory,
+                          items: Categorys.values.map((category) {
+                            return DropdownMenuItem<Categorys>(
+                              value: category,
+                              child: Text(category.toString().split('.').last),
+                            );
+                          }).toList(),
+                          onChanged: (Categorys? newValue) {
+                            setState(() {
+                              _selectCategory = newValue!;
+                            });
+                          },
+
+                        ),
+                      )
                     ),
                   ],
                 ),
                 TextFormField(
+                  maxLength: 80,
                   controller: _descriptionController,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
@@ -159,8 +169,8 @@ class _AddExpenseState extends State<AddExpense> {
                     if (value == null || value.trim().isEmpty) {
                       return 'Please provide a description.';
                     }
-                    if (value.length > 10) {
-                      return 'Description must not exceed 10 characters.';
+                    if (value.length > 80) {
+                      return 'Description must not exceed 80 characters.';
                     }
                     return null;
                   },
@@ -204,12 +214,12 @@ class _AddExpenseState extends State<AddExpense> {
                         ),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return 'Please enter a valid amount.';
+                            return 'Please input amount.';
                           }
                           try {
                             double.parse(value);
                           } catch (_) {
-                            return 'Please enter a valid number.';
+                            return 'Please input number.';
                           }
                           return null;
                         },
@@ -226,10 +236,10 @@ class _AddExpenseState extends State<AddExpense> {
       actions: <Widget>[
         ElevatedButton.icon(
           style: ButtonStyle(
-            padding: MaterialStateProperty.all(
+            padding: WidgetStateProperty.all(
                 const EdgeInsets.symmetric(horizontal: 35)),
-            backgroundColor: MaterialStateProperty.all(const Color(0xFF19BE00)),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            backgroundColor: WidgetStateProperty.all(const Color(0xFF19BE00)),
+            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
                 side: const BorderSide(color: Color(0xFF19BE00)),
@@ -251,3 +261,14 @@ class _AddExpenseState extends State<AddExpense> {
     );
   }
 }
+// ButtonStyle(
+// padding: MaterialStateProperty.all(
+// const EdgeInsets.symmetric(horizontal: 35)),
+// backgroundColor: MaterialStateProperty.all(const Color(0xFF19BE00)),
+// shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+// RoundedRectangleBorder(
+// borderRadius: BorderRadius.circular(10),
+// side: const BorderSide(color: Color(0xFF19BE00)),
+// ),
+// ),
+// ),

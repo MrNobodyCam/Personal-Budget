@@ -2,9 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:personal_budget/model/expense.dart';
 import 'package:personal_budget/screen/transaction/detail_expense.dart';
 
+import '../../data/data.dart';
+
 class ExpenseItem extends StatefulWidget {
-  const ExpenseItem({super.key, required this.expense});
+  const ExpenseItem(
+      {super.key,
+      required this.expense,
+      required this.listExpense,
+      required this.balance,
+      required this.expenseIndex});
   final Expense expense;
+  final ListExpense listExpense;
+  final int expenseIndex;
+  final Balance balance;
   @override
   State<ExpenseItem> createState() => _ExpenseItemState();
 }
@@ -35,6 +45,12 @@ class _ExpenseItemState extends State<ExpenseItem> {
     return asset;
   }
 
+  void removeExpense(int index) {
+    setState(() {
+      expenseList.removeExpense(index);
+    });
+    // initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +69,11 @@ class _ExpenseItemState extends State<ExpenseItem> {
         onTap: () {
           showDialog<String>(
               context: context,
-              builder: (BuildContext context) => DetailExpense());
+              builder: (BuildContext context) => DetailExpense(
+                    expense: widget.expense,
+                    expenseIndex: widget.expenseIndex,
+                    // onRemoveExpense: ,
+                  ));
         },
         child: Container(
           padding: const EdgeInsets.all(15),
@@ -63,7 +83,10 @@ class _ExpenseItemState extends State<ExpenseItem> {
               //   radius: 30,
               //   backgroundImage: AssetImage(checkCategory()),
               // ),
-              Image.asset(checkCategory(),width: 50,),
+              Image.asset(
+                checkCategory(),
+                width: 50,
+              ),
               SizedBox(width: 13),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +97,7 @@ class _ExpenseItemState extends State<ExpenseItem> {
                 ],
               ),
               Spacer(),
-              Text("\$ ${widget.expense.amount}"),
+              Text("\$ ${widget.expense.amount.toStringAsFixed(2)}"),
             ],
           ),
         ),

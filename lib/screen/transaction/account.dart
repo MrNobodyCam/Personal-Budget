@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:personal_budget/data/data.dart';
 import 'package:personal_budget/screen/transaction/set_spending.dart';
 import 'package:personal_budget/model/expense.dart';
 import 'add_expense.dart';
 
 class BalanceCard extends StatefulWidget {
-  final Balance valueBalance;
-  final ListExpense expenseList;
 
-  const BalanceCard({super.key, required this.valueBalance,required this.expenseList});
+  const BalanceCard({super.key});
 
   @override
   State<BalanceCard> createState() => _BalanceCardState();
@@ -15,19 +14,11 @@ class BalanceCard extends StatefulWidget {
 
 class _BalanceCardState extends State<BalanceCard> {
 
-  void _addExpense(Expense expense) {
-    setState(() {
-      widget.valueBalance.addExpense(expense.amount);
-      // widget. += expense.amount;
-      widget.expenseList.addExpense(expense);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Card(
       color: const Color(0xFF0B004B),
-      margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
+      margin: const EdgeInsets.only(left: 15, right: 15, top: 10),
       child: Container(
         height: 150,
         padding: const EdgeInsets.all(15),
@@ -39,19 +30,19 @@ class _BalanceCardState extends State<BalanceCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Text(
-                  "Total Balance",
+                  "Monthly Balance",
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 17,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
                 ValueListenableBuilder<double>(
-                  valueListenable: widget.valueBalance.balanceNotifier,
+                  valueListenable: sharedBalance.balanceNotifier,
                   builder: (context, balance, child) {
                     return Text(
-                      "\$ ${widget.valueBalance.balanceNotifier.value.toStringAsFixed(2)} ",
+                      "\$ ${sharedBalance.balanceNotifier.value.toStringAsFixed(2)} ",
                       style: TextStyle(
-                          fontSize: 32,
+                          fontSize: 30,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     );
@@ -65,9 +56,7 @@ class _BalanceCardState extends State<BalanceCard> {
                     onPressed: () {
                       showDialog(
                         context: context,
-                        builder: (BuildContext context) => SetSpending(
-                          valueBalance: widget.valueBalance,
-                        ),
+                        builder: (BuildContext context) => SetSpending(),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -89,19 +78,19 @@ class _BalanceCardState extends State<BalanceCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Text(
-                  "Daily Expenses",
+                  "Expenses",
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 17,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
                 ValueListenableBuilder<double>(
-                  valueListenable: widget.valueBalance.expenseNotifier,
+                  valueListenable: sharedBalance.expenseNotifier,
                   builder: (context, balance, child) {
                     return Text(
-                      "\$ ${widget.valueBalance.expenseNotifier.value.toStringAsFixed(2)} ",
+                      "\$ ${sharedBalance.expenseNotifier.value.toStringAsFixed(2)} ",
                       style: TextStyle(
-                          fontSize: 32,
+                          fontSize: 30,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     );
@@ -113,12 +102,9 @@ class _BalanceCardState extends State<BalanceCard> {
                   width: 124,
                   child: ElevatedButton(
                     onPressed: () {
-
                       showDialog(
                         context: context,
-                        builder: (BuildContext context) => AddExpense(
-                          onAddExpense: _addExpense, // Pass the callback
-                        ),
+                        builder: (BuildContext context) => AddExpense(),
                       );
                     },
                     style: ElevatedButton.styleFrom(

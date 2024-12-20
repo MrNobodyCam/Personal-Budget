@@ -1,13 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:personal_budget/model/expense.dart';
+import 'package:personal_budget/screen/transaction/transaction_screen.dart';
+import 'package:personal_budget/data/data.dart';
 
 class DetailExpense extends StatefulWidget {
-  const DetailExpense({super.key});
+  const DetailExpense({
+    super.key,
+    required this.expense,
+    required this.expenseIndex,
+    // required this.onRemoveExpense
+  });
+  final Expense expense;
+  final int expenseIndex;
+  // final Function(Expense) onRemoveExpense;
 
   @override
   State<DetailExpense> createState() => _DetailExpenseState();
 }
 
 class _DetailExpenseState extends State<DetailExpense> {
+  void removeExpense(int index) {
+    setState(() {
+      expenseList.removeExpense(index);
+      sharedBalance.removeExpense(widget.expense);
+    });
+    // initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -57,57 +76,60 @@ class _DetailExpenseState extends State<DetailExpense> {
             ),
             Row(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "Title : ",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "School Expense",
-                          style: TextStyle(fontSize: 14),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Description :",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      width: 220,
-                      child: Text(
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+                SizedBox(
+                  width: 190,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "Title : ",
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            widget.expense.title,
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Description :",
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "${widget.expense.description}",
                         style: TextStyle(fontSize: 14),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Spacer(),
-                Column(
-                  children: [
-                    Text(
-                      "Amount",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "\$ 2.5",
-                      style:
-                          TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
+                SizedBox(
+                  width: 90,
+                  child: Column(
+                    children: [
+                      Text(
+                        "Amount",
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "\$ ${widget.expense.amount.toStringAsFixed(2)}",
+                        style: TextStyle(
+                            fontSize: 19, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
             SizedBox(
@@ -117,11 +139,10 @@ class _DetailExpenseState extends State<DetailExpense> {
               children: [
                 Text(
                   "Category : ",
-                  style:
-                  TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "Food & Drink",
+                  widget.expense.category.title,
                   style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
@@ -129,7 +150,9 @@ class _DetailExpenseState extends State<DetailExpense> {
                 )
               ],
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               children: [
                 Text(
@@ -137,7 +160,7 @@ class _DetailExpenseState extends State<DetailExpense> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                 ),
                 Text(
-                  "07/Dec/2024",
+                  "${widget.expense.dateTime.day}/${widget.expense.dateTime.month}/${widget.expense.dateTime.year}",
                   style: TextStyle(fontSize: 14),
                 )
               ],
@@ -147,6 +170,34 @@ class _DetailExpenseState extends State<DetailExpense> {
       ),
       actionsPadding: EdgeInsets.only(right: 20, top: 20, bottom: 20),
       actions: <Widget>[
+        ElevatedButton.icon(
+            style: ButtonStyle(
+                padding: WidgetStatePropertyAll(
+                    EdgeInsets.symmetric(horizontal: 35)),
+                backgroundColor: WidgetStatePropertyAll(Color(0xFFC30000)),
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(color: Color(0xFFC30000))))),
+            onPressed: () {
+              setState(() {
+                removeExpense(widget.expenseIndex);
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TransactionScreen()));
+              });
+            },
+            label: Text(
+              "Delete",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+            icon: Icon(
+              Icons.delete,
+              size: 18,
+              color: Colors.white,
+            )),
         ElevatedButton.icon(
           style: ButtonStyle(
               padding:

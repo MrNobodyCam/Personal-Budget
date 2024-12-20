@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:personal_budget/data/data.dart';
+import 'package:personal_budget/screen/transaction/transaction_screen.dart';
 
 class CategoryCard extends StatefulWidget {
   const CategoryCard({super.key});
@@ -12,12 +14,11 @@ class _CategoryCardState extends State<CategoryCard> {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: const BorderSide(
-          color: Colors.black,
-          width: 2,
-        )
-      ),
+          borderRadius: BorderRadius.circular(10),
+          side: const BorderSide(
+            color: Colors.black,
+            width: 2,
+          )),
       margin: const EdgeInsets.only(left: 13, right: 13, top: 10, bottom: 10),
       color: const Color(0xFFF0F0F0),
       child: Container(
@@ -29,6 +30,11 @@ class _CategoryCardState extends State<CategoryCard> {
             InkWell(
               onTap: () {
                 print("All Item");
+                expenseList.checkCategory = 1;
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TransactionScreen()));
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,6 +54,11 @@ class _CategoryCardState extends State<CategoryCard> {
             InkWell(
               onTap: () {
                 print("Soft Drink");
+                expenseList.checkCategory = 2;
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TransactionScreen()));
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -67,6 +78,11 @@ class _CategoryCardState extends State<CategoryCard> {
             InkWell(
               onTap: () {
                 print("Transportation");
+                expenseList.checkCategory = 3;
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TransactionScreen()));
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -86,6 +102,11 @@ class _CategoryCardState extends State<CategoryCard> {
             InkWell(
               onTap: () {
                 print("Cinema");
+                expenseList.checkCategory = 4;
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => TransactionScreen())
+                );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -105,6 +126,11 @@ class _CategoryCardState extends State<CategoryCard> {
             InkWell(
               onTap: () {
                 print("Utilities");
+                expenseList.checkCategory = 5;
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => TransactionScreen())
+                );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -124,6 +150,11 @@ class _CategoryCardState extends State<CategoryCard> {
             InkWell(
               onTap: () {
                 print("Health");
+                expenseList.checkCategory = 6;
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => TransactionScreen())
+                );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -143,6 +174,11 @@ class _CategoryCardState extends State<CategoryCard> {
             InkWell(
               onTap: () {
                 print("Shopping");
+                expenseList.checkCategory = 7;
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => TransactionScreen())
+                );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,

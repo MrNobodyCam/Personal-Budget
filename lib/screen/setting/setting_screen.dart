@@ -2,12 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personal_budget/screen/setting/about.dart';
 import 'package:personal_budget/screen/setting/profile.dart';
+import '../../data/data.dart';
 import '../app_bar.dart';
 import '../bottom_bar.dart';
 
-class SettingScreen extends StatelessWidget {
+class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
 
+  @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
+  @override
+  void initState(){
+    super.initState();
+    expenseList.checkCategory = 1;
+  }
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

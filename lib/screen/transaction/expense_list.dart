@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:personal_budget/model/expense.dart';
 import 'package:personal_budget/screen/transaction/expense_item.dart';
+import 'package:personal_budget/data/data.dart';
 
 class ExpenseList extends StatefulWidget {
-  const ExpenseList({super.key, required this.listExpense});
-  final ListExpense listExpense;
+  const ExpenseList({super.key});
 
   @override
   State<ExpenseList> createState() => _ExpenseListState();
 }
 
 class _ExpenseListState extends State<ExpenseList> {
-
-  void removeExpense(int index) {
-    setState(() {
-      widget.listExpense.removeExpense(index);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final categoryFilter = expenseList.checkCategory;
+
+    // Filter expenses based on the categoryFilter
+    final filteredExpenses = categoryFilter == 1
+        ? expenseList.expenseList
+        : expenseList.expenseList
+        .where((expense) => expense.category.index + 2 == categoryFilter)
+        .toList();
+
     return Scaffold(
       backgroundColor: Colors.white,
-      body: widget.listExpense.expenseList.isEmpty
+      body: filteredExpenses.isEmpty
           ? const Center(
         child: Text(
           "No Expenses Found",
@@ -30,23 +31,16 @@ class _ExpenseListState extends State<ExpenseList> {
         ),
       )
           : ListView.builder(
-        itemCount: widget.listExpense.expenseList.length,
+        itemCount: filteredExpenses.length,
         itemBuilder: (context, index) {
-          return Dismissible(
-            key: ValueKey(widget.listExpense.expenseList[index]),
-            direction: DismissDirection.endToStart,
-            onDismissed: (direction) {
-              setState(() {
-                widget.listExpense.removeExpense(index);
-              });
-            },
-            background: Container(
-              color: Colors.red,
-              alignment: Alignment.centerRight,
-              padding: const EdgeInsets.only(right: 20),
-              child: const Icon(Icons.delete, color: Colors.white),
-            ),
-            child: ExpenseItem(expense: widget.listExpense.expenseList[index]),
+          // Properly handle reverse indexing
+          int reverseIndex = filteredExpenses.length - 1 - index;
+
+          return ExpenseItem(
+            expense: filteredExpenses[reverseIndex],
+            listExpense: expenseList,
+            expenseIndex: reverseIndex,
+            balance: sharedBalance,
           );
         },
       ),

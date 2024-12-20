@@ -5,8 +5,21 @@ import 'package:personal_budget/screen/dashboard/category_chart.dart';
 import 'package:personal_budget/screen/dashboard/expense_line_chart.dart';
 import 'package:personal_budget/screen/dashboard/progress_bar.dart';
 
-class DashboardScreen extends StatelessWidget {
+import '../../data/data.dart';
+
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  @override
+  void initState(){
+    super.initState();
+    expenseList.checkCategory = 1;
+  }
 
   @override
   Widget build(BuildContext context) {

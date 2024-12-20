@@ -16,4 +16,4 @@ Expense expense2 = Expense(
 );
 
 Balance sharedBalance = Balance();
-ListExpense expenseList = ListExpense([expense1,expense2]);
+ListExpense expenseList = ListExpense();

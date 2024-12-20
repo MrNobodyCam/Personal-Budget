@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:personal_budget/model/expense.dart';
+import 'package:personal_budget/data/data.dart';
 
 class SetSpending extends StatefulWidget {
-  final Balance valueBalance;
 
-  const SetSpending({super.key, required this.valueBalance});
+  const SetSpending({super.key});
 
   @override
   State<SetSpending> createState() => _SetSpendingState();
@@ -16,7 +15,7 @@ class _SetSpendingState extends State<SetSpending> {
 
   void addBalance() {
     double balance = double.tryParse(_balanceController.text) ?? 0.0;
-    widget.valueBalance.addBalance(balance);
+    sharedBalance.addBalance(balance);
   }
 
   @override

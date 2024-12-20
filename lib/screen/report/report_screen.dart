@@ -2,11 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:personal_budget/screen/app_bar.dart';
 import 'package:personal_budget/screen/bottom_bar.dart';
 
+import '../../data/data.dart';
 import 'expense_list.dart';
 
-class ReportScreen extends StatelessWidget {
+class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
 
+  @override
+  State<ReportScreen> createState() => _ReportScreenState();
+}
+
+class _ReportScreenState extends State<ReportScreen> {
+  @override
+  void initState(){
+    super.initState();
+    expenseList.checkCategory = 1;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
