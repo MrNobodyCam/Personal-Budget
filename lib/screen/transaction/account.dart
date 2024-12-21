@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_budget/data/data.dart';
 import 'package:personal_budget/screen/transaction/set_spending.dart';
-import 'package:personal_budget/model/expense.dart';
 import 'add_expense.dart';
 
 class BalanceCard extends StatefulWidget {
@@ -119,6 +118,7 @@ class _BalanceCardState extends State<BalanceCard> {
                         context: context,
                         builder: (BuildContext context) => AddExpense(),
                       );
+                      // LocalNotification.showSimpleNotification(title: "Budget Alert!", body: "You’ve exceeded your budget.", payload: "payload");
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF4E49B6),

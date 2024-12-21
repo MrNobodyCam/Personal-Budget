@@ -4,6 +4,8 @@ import 'package:personal_budget/model/expense.dart';
 import 'package:personal_budget/screen/transaction/transaction_screen.dart';
 import 'package:personal_budget/data/data.dart';
 
+import '../../local_notification.dart';
+
 class AddExpense extends StatefulWidget {
 
   const AddExpense({super.key});
@@ -22,7 +24,9 @@ class _AddExpenseState extends State<AddExpense> {
   void _addExpense(Expense expense) {
     setState(() {
       // widget. += expense.amount;
-      sharedBalance.addExpense(expense.amount);
+      if(DateTime.now().month == expense.dateTime.month){
+        sharedBalance.addExpense(expense.amount);
+      }
       sharedBalance.expenseValue(expenseList);
       expenseList.addExpense(expense);
     });
@@ -37,12 +41,9 @@ class _AddExpenseState extends State<AddExpense> {
         dateTime: selectDate,
       );
       _addExpense(expense);
-
-      // Print for debugging
       print(
           "title:${expense.title}, Description:${expense.description}, Category:${expense.category}, Amount:${expense.amount}, DateTime:${expense.dateTime}");
 
-      // Close the dialog only on successful addition
       Navigator.pop(context);
       Navigator.pushReplacement(
         context,
@@ -50,14 +51,19 @@ class _AddExpenseState extends State<AddExpense> {
           builder: (context) => TransactionScreen(),
         ),
       );
+
+      if(sharedBalance.overSpending()){
+        LocalNotification.showSimpleNotification(title: "Budget Alert!", body: "You’ve exceeded your budget.", payload: "payload");
+        expenseList.addOverSpend(expense);
+      }
     }
   }
 
   void dateTimePick() async {
     DateTime? date = await showDatePicker(
       context: context,
-      firstDate: DateTime(DateTime.now().year - 5),
-      lastDate: DateTime(DateTime.now().year + 5),
+      firstDate: DateTime(DateTime.now().year),
+      lastDate: DateTime.now(),
       initialDate: selectDate,
     );
 

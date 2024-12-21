@@ -132,7 +132,7 @@ class _CategoryCardState extends State<CategoryCard> {
                     width: 60,
                   ),
                   const Text(
-                    "Cinema",
+                    "Entertainment",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                   )
                 ],

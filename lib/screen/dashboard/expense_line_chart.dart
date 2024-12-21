@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:personal_budget/data/data.dart';
 
 class ExpenseLineChart extends StatefulWidget {
   const ExpenseLineChart({super.key});
@@ -9,6 +10,32 @@ class ExpenseLineChart extends StatefulWidget {
 }
 
 class _ExpenseLineChartState extends State<ExpenseLineChart> {
+  double mon = 0;
+  double tue = 0;
+  double wed = 0;
+  double thu = 0;
+  double fri = 0;
+  double sat = 0;
+  double sun = 0;
+  double minY = 0; // Initial minY value
+  double maxY = 100;
+  @override
+  void initState() {
+    super.initState();
+    mon = expenseList.checkMon();
+    tue = expenseList.checkTue();
+    wed = expenseList.checkWed();
+    thu = expenseList.checkThu();
+    fri = expenseList.checkFri();
+    sat = expenseList.checkSat();
+    sun = expenseList.checkSun();
+    List<double> expenses = [mon, tue, wed, thu, fri, sat, sun];
+    minY = expenses.reduce((a, b) => a < b ? a : b); // Get the min value
+    maxY = expenses.reduce((a, b) => a > b ? a : b); // Get the max value
+
+    // Optionally add some padding to maxY for better visualization
+    maxY += 10;
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -16,15 +43,15 @@ class _ExpenseLineChartState extends State<ExpenseLineChart> {
       children: [
         const SizedBox(height: 20),
         const Text(
-          "Weekly Expense Line Chart",
+          "This Week Expense Line Chart",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
             color: Color(0xFF585858),
           ),
         ),
-        const SizedBox(height: 15),
-        CalendarButton(),
+        // const SizedBox(height: 15),
+        // CalendarButton(),
         const SizedBox(height: 15),
         SizedBox(
           height: 300,
@@ -33,13 +60,13 @@ class _ExpenseLineChartState extends State<ExpenseLineChart> {
               lineBarsData: [
                 LineChartBarData(
                   spots: [
-                    FlSpot(1, 50), // Monday: $50
-                    FlSpot(2, 30), // Tuesday: $30
-                    FlSpot(3, 40), // Wednesday: $40
-                    FlSpot(4, 60), // Thursday: $60
-                    FlSpot(5, 20), // Friday: $20
-                    FlSpot(6, 70), // Saturday: $70
-                    FlSpot(7, 45), // Sunday: $45
+                    FlSpot(1, mon), // Monday
+                    FlSpot(2, tue), // Tuesday
+                    FlSpot(3, wed), // Wednesday
+                    FlSpot(4, thu), // Thursday
+                    FlSpot(5, fri), // Friday
+                    FlSpot(6, sat), // Saturday
+                    FlSpot(7, sun), // Sunday
                   ],
                   isCurved: true,
                   barWidth: 3,
@@ -60,8 +87,8 @@ class _ExpenseLineChartState extends State<ExpenseLineChart> {
                   ),
                 ),
               ],
-              minY: 0,
-              maxY: 100,
+              minY: minY, // Dynamic minY
+              maxY: maxY,
               titlesData: FlTitlesData(
                 bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
@@ -130,34 +157,34 @@ class _ExpenseLineChartState extends State<ExpenseLineChart> {
   }
 }
 
-class CalendarButton extends StatefulWidget {
-  const CalendarButton({super.key});
+// class CalendarButton extends StatefulWidget {
+//   const CalendarButton({super.key});
+//
+//   @override
+//   State<CalendarButton> createState() => _CalendarButtonState();
+// }
 
-  @override
-  State<CalendarButton> createState() => _CalendarButtonState();
-}
-
-class _CalendarButtonState extends State<CalendarButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Spacer(),
-        Container(
-          margin: EdgeInsets.only(right: 20),
-          child: InkWell(
-            onTap: () {},
-            child: Row(
-              children: [
-                const Text(
-                  "14 / Dec / 2024",
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-        )
-      ],
-    );
-  }
-}
+// class _CalendarButtonState extends State<CalendarButton> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       children: [
+//         const Spacer(),
+//         Container(
+//           margin: EdgeInsets.only(right: 20),
+//           child: InkWell(
+//             onTap: () {},
+//             child: Row(
+//               children: [
+//                 const Text(
+//                   "14 / Dec / 2024",
+//                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         )
+//       ],
+//     );
+//   }
+// }

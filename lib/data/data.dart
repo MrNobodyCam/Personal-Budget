@@ -1,5 +1,4 @@
 import 'package:personal_budget/model/expense.dart';
-import 'package:personal_budget/screen/transaction/expense_list.dart';
 
 Expense expense1 = Expense(
   title: "School",

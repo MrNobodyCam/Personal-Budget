@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:personal_budget/screen/dashboard/dashboard_screen.dart';
 import 'package:personal_budget/screen/report/report_screen.dart';
 import 'package:personal_budget/screen/setting/setting_screen.dart';

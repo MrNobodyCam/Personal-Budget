@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:personal_budget/model/expense.dart';
+import '../../data/data.dart';
 
 class CategoryChart extends StatefulWidget {
   const CategoryChart({super.key});
@@ -8,47 +10,55 @@ class CategoryChart extends StatefulWidget {
   State<CategoryChart> createState() => _CategoryChartState();
 }
 
-// Data for the pie chart
-Map<String, double> dataMap = {
-  "Food & Drink": 5,
-  "Transportation": 3,
-  "Entertainment": 2,
-  "Utilities": 2,
-  "Health": 2,
-  "Shopping": 2,
-};
-
-// Colors for the chart
-final List<Color> colorList = [
-  Colors.blue,
-  Colors.green,
-  Colors.orange,
-  Colors.purple,
-  Colors.red,
-  Colors.yellow,
-];
-
 class _CategoryChartState extends State<CategoryChart> {
+  late Map<String, double> dataMap;
+
+  final List<Color> colorList = [
+    Colors.blue,
+    Colors.green,
+    Colors.orange,
+    Colors.purple,
+    Colors.red,
+    Colors.yellow,
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    final foodCount = expenseList.amountByCategory(Categorys.Food);
+    final transportationCount =
+        expenseList.amountByCategory(Categorys.Transportation);
+    final entertainmentCount =
+        expenseList.amountByCategory(Categorys.Entertainment);
+    final utilitiesCount = expenseList.amountByCategory(Categorys.Utilities);
+    final healthCount = expenseList.amountByCategory(Categorys.Health);
+    final shoppingCount = expenseList.amountByCategory(Categorys.Shopping);
+    dataMap = {
+      "Food & Drink": foodCount,
+      "Transportation": transportationCount,
+      "Entertainment": entertainmentCount,
+      "Utilities": utilitiesCount,
+      "Health": healthCount,
+      "Shopping": shoppingCount,
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
-          height: 30,
-        ),
+        const SizedBox(height: 30),
         const Text(
-          "Monthly Category Chart",
+          "Monthly Spending Chart",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
             color: Color(0xFF585858),
           ),
         ),
-        const SizedBox(
-          height: 15,
-        ),
-        CalendarButton(),
+        const SizedBox(height: 15),
+        const CalendarButton(),
         PieChart(
           dataMap: dataMap,
           animationDuration: const Duration(milliseconds: 1000),
@@ -63,9 +73,7 @@ class _CategoryChartState extends State<CategoryChart> {
             legendPosition: LegendPosition.right,
             showLegends: true,
             legendShape: BoxShape.rectangle,
-            legendTextStyle: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+            legendTextStyle: TextStyle(fontWeight: FontWeight.bold),
           ),
           chartValuesOptions: const ChartValuesOptions(
             showChartValueBackground: true,
@@ -94,19 +102,18 @@ class _CalendarButtonState extends State<CalendarButton> {
       children: [
         const Spacer(),
         Container(
-          margin: EdgeInsets.only(right: 20),
+          margin: const EdgeInsets.only(right: 20),
           child: InkWell(
-            onTap: () {},
-            child: Row(
-              children: [
-                const Text(
-                  "Dec / 2024",
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                ),
-              ],
+            onTap: () {
+              // Implement date picker functionality here
+              print("Date picker tapped");
+            },
+            child: const Text(
+              "Dec / 2024",
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
             ),
           ),
-        )
+        ),
       ],
     );
   }
