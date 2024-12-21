@@ -4,7 +4,6 @@ import 'package:personal_budget/screen/dashboard/dashboard_screen.dart';
 import 'package:personal_budget/screen/report/report_screen.dart';
 import 'package:personal_budget/screen/setting/setting_screen.dart';
 import 'package:personal_budget/screen/transaction/transaction_screen.dart';
-import 'package:personal_budget/data/data.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key, required this.checkSelect});
@@ -31,7 +30,7 @@ class _BottomBarState extends State<BottomBar> {
   late int selectedIndex;
   final List<Widget> screens = [
     const DashboardScreen(),
-    TransactionScreen(),
+    const TransactionScreen(),
     const ReportScreen(),
     const SettingScreen(),
   ];
@@ -46,11 +45,18 @@ class _BottomBarState extends State<BottomBar> {
     setState(() {
       selectedIndex = newIndex;
     });
-
-    Get.offAll(
-          () => screens[newIndex],
-      transition: Transition.noTransition,
-    );
+    Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+          screens[newIndex],
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+        ));
+    // Get.offAll(
+    //       () => screens[newIndex],
+    //   transition: Transition.noTransition,
+    // );
   }
 
   @override

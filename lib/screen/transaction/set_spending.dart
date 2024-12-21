@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:personal_budget/data/data.dart';
+import 'package:personal_budget/screen/transaction/transaction_screen.dart';
 
 class SetSpending extends StatefulWidget {
 
@@ -87,7 +88,7 @@ class _SetSpendingState extends State<SetSpending> {
               ),
               keyboardType: TextInputType.number,
               inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')), // Allow numbers and one decimal point
+                FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
               ],
             ),
           ],
@@ -112,6 +113,14 @@ class _SetSpendingState extends State<SetSpending> {
             setState(() {
               addBalance();
               Navigator.pop(context);
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) => TransactionScreen(),
+                  transitionDuration: Duration.zero,
+                  reverseTransitionDuration: Duration.zero,
+                ),
+              );
             });
           },
           label: const Text(

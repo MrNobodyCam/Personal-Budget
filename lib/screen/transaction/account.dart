@@ -13,7 +13,20 @@ class BalanceCard extends StatefulWidget {
 }
 
 class _BalanceCardState extends State<BalanceCard> {
-
+  Color color = Colors.white;
+  @override
+  void initState(){
+    super.initState();
+    checkSpending();
+  }
+  void checkSpending(){
+    if(sharedBalance.overSpending() == true){
+      print("Spend Over");
+      color = Colors.red;
+    }else{
+      color = Colors.white;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -77,11 +90,11 @@ class _BalanceCardState extends State<BalanceCard> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
+                Text(
                   "Expenses",
                   style: TextStyle(
                       fontSize: 17,
-                      color: Colors.white,
+                      color: color,
                       fontWeight: FontWeight.bold),
                 ),
                 ValueListenableBuilder<double>(
@@ -91,7 +104,7 @@ class _BalanceCardState extends State<BalanceCard> {
                       "\$ ${sharedBalance.expenseNotifier.value.toStringAsFixed(2)} ",
                       style: TextStyle(
                           fontSize: 30,
-                          color: Colors.white,
+                          color: color,
                           fontWeight: FontWeight.bold),
                     );
                   },

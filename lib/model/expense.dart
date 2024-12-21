@@ -12,6 +12,14 @@ enum Categorys {
   const Categorys({required this.image,required this.title});
 }
 
+// enum CheckSpend{
+//   OverSpending(color: Colors.red),
+//   NormalSpending(color: Colors.white);
+//
+//   final Color color;
+//   const CheckSpend({required this.color});
+// }
+
 class Balance {
   ValueNotifier<double> balanceNotifier = ValueNotifier<double>(0.00);
   ValueNotifier<double> expenseNotifier = ValueNotifier<double>(0.00);
@@ -30,7 +38,13 @@ class Balance {
       expenseNotifier.value = expenseNotifier.value + expense.amount;
     }
     // expenseNotifier.value = newExpense + expenseNotifier.value;
-
+  }
+  bool overSpending(){
+    if(expenseNotifier.value > balanceNotifier.value){
+      print("Spend Over");
+      return true;
+    }
+    return false;
   }
 }
 

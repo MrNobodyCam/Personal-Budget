@@ -183,9 +183,13 @@ class _DetailExpenseState extends State<DetailExpense> {
               setState(() {
                 removeExpense(widget.expenseIndex);
                 Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => TransactionScreen()));
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) => TransactionScreen(),
+                    transitionDuration: Duration.zero, // No transition animation
+                    reverseTransitionDuration: Duration.zero, // No reverse animation
+                  ),
+                );
               });
             },
             label: Text(

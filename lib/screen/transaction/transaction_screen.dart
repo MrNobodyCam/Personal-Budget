@@ -4,7 +4,6 @@ import '../app_bar.dart';
 import '../bottom_bar.dart';
 import 'account.dart';
 import 'expense_list.dart';
-import 'package:personal_budget/data/data.dart';
 
 class TransactionScreen extends StatefulWidget {
   const TransactionScreen({super.key});

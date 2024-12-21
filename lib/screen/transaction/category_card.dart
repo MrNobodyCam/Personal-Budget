@@ -32,9 +32,13 @@ class _CategoryCardState extends State<CategoryCard> {
                 print("All Item");
                 expenseList.checkCategory = 1;
                 Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => TransactionScreen()));
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) => TransactionScreen(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                  ),
+                );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,9 +60,13 @@ class _CategoryCardState extends State<CategoryCard> {
                 print("Soft Drink");
                 expenseList.checkCategory = 2;
                 Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => TransactionScreen()));
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) => TransactionScreen(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                  ),
+                );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,9 +88,13 @@ class _CategoryCardState extends State<CategoryCard> {
                 print("Transportation");
                 expenseList.checkCategory = 3;
                 Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => TransactionScreen()));
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) => TransactionScreen(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                  ),
+                );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -104,8 +116,12 @@ class _CategoryCardState extends State<CategoryCard> {
                 print("Cinema");
                 expenseList.checkCategory = 4;
                 Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => TransactionScreen())
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) => TransactionScreen(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                  ),
                 );
               },
               child: Column(
@@ -128,8 +144,12 @@ class _CategoryCardState extends State<CategoryCard> {
                 print("Utilities");
                 expenseList.checkCategory = 5;
                 Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => TransactionScreen())
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) => TransactionScreen(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                  ),
                 );
               },
               child: Column(
@@ -152,8 +172,12 @@ class _CategoryCardState extends State<CategoryCard> {
                 print("Health");
                 expenseList.checkCategory = 6;
                 Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => TransactionScreen())
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) => TransactionScreen(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                  ),
                 );
               },
               child: Column(
@@ -176,8 +200,12 @@ class _CategoryCardState extends State<CategoryCard> {
                 print("Shopping");
                 expenseList.checkCategory = 7;
                 Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => TransactionScreen())
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) => TransactionScreen(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                  ),
                 );
               },
               child: Column(

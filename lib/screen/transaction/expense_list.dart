@@ -14,7 +14,6 @@ class _ExpenseListState extends State<ExpenseList> {
   Widget build(BuildContext context) {
     final categoryFilter = expenseList.checkCategory;
 
-    // Filter expenses based on the categoryFilter
     final filteredExpenses = categoryFilter == 1
         ? expenseList.expenseList
         : expenseList.expenseList
@@ -33,7 +32,6 @@ class _ExpenseListState extends State<ExpenseList> {
           : ListView.builder(
         itemCount: filteredExpenses.length,
         itemBuilder: (context, index) {
-          // Properly handle reverse indexing
           int reverseIndex = filteredExpenses.length - 1 - index;
 
           return ExpenseItem(
