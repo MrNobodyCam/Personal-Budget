@@ -6,43 +6,69 @@ import 'package:personal_budget/data/data.dart';
 
 import '../../local_notification.dart';
 
-class AddExpense extends StatefulWidget {
-  const AddExpense({super.key});
+class EditExpense extends StatefulWidget {
+
+  const EditExpense({super.key,required this.expense,required this.expenseIndex});
+  final Expense expense;
+  final int expenseIndex;
 
   @override
-  State<AddExpense> createState() => _AddExpenseState();
+  State<EditExpense> createState() => _EditExpenseState();
 }
 
-class _AddExpenseState extends State<AddExpense> {
+class _EditExpenseState extends State<EditExpense> {
+  late DateTime oldDate = DateTime.now();
   final _formKey = GlobalKey<FormState>();
-  Categorys _selectCategory = Categorys.values.first;
-  DateTime selectDate = DateTime.now();
-  final _titleController = TextEditingController();
-  final _descriptionController = TextEditingController();
-  final _amountController = TextEditingController();
-  void _addExpense(Expense expense) {
+  late Categorys _selectCategory;
+  late DateTime selectDate;
+  late TextEditingController _titleController;
+  late TextEditingController _descriptionController;
+  late TextEditingController _amountController;
+
+  @override
+  void initState() {
+    super.initState();
+    oldDate = widget.expense.dateTime;
+    _selectCategory = widget.expense.category;
+    selectDate = widget.expense.dateTime;
+    _titleController = TextEditingController(text: widget.expense.title);
+    _descriptionController = TextEditingController(text: widget.expense.description);
+    _amountController = TextEditingController(text: widget.expense.amount.toString());
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    _amountController.dispose();
+    super.dispose();
+  }
+
+  void _editExpense(Expense updatedExpense) {
     setState(() {
-      // widget. += expense.amount;
-      if (DateTime.now().month == expense.dateTime.month) {
-        sharedBalance.addExpense(expense.amount);
-      }
-      sharedBalance.expenseValue(expenseList);
-      expenseList.addExpense(expense);
+      // expenseList.updateExpense(widget.expenseIndex, updatedExpense);
+      expenseList.expenseList.removeAt(widget.expenseIndex);
+      expenseList.expenseList.insert(widget.expenseIndex, updatedExpense);
+      // if(DateTime.now().month == updatedExpense.dateTime.month){
+      //   sharedBalance.addExpense(updatedExpense.amount);
+      // }
+      sharedBalance.expenseValueEdit(expenseList);
     });
   }
 
-  void onAdd() {
+  void onEdit() {
     if (_formKey.currentState!.validate()) {
-      final expense = Expense(
+      final updatedExpense = Expense(
         title: _titleController.text,
         description: _descriptionController.text,
         category: _selectCategory,
         amount: double.parse(_amountController.text),
         dateTime: selectDate,
       );
-      _addExpense(expense);
+
+      _editExpense(updatedExpense);
       print(
-          "title:${expense.title}, Description:${expense.description}, Category:${expense.category}, Amount:${expense.amount}, DateTime:${expense.dateTime}");
+          "Updated -> Title: ${updatedExpense.title}, Description: ${updatedExpense.description}, Category: ${updatedExpense.category}, Amount: ${updatedExpense.amount}, DateTime: ${updatedExpense.dateTime}");
 
       Navigator.pop(context);
       Navigator.pushReplacement(
@@ -54,10 +80,11 @@ class _AddExpenseState extends State<AddExpense> {
 
       if (sharedBalance.overSpending()) {
         LocalNotification.showSimpleNotification(
-            title: "Budget Alert!",
-            body: "You’ve exceeded your budget.",
-            payload: "payload");
-        expenseList.addOverSpend(expense);
+          title: "Budget Alert!",
+          body: "You’ve exceeded your budget.",
+          payload: "payload",
+        );
+        expenseList.addOverSpend(updatedExpense);
       }
     }
   }
@@ -123,7 +150,7 @@ class _AddExpenseState extends State<AddExpense> {
                   ],
                 ),
                 const Text(
-                  "Add Expense",
+                  "Edit Expense",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
                 const SizedBox(height: 20),
@@ -134,7 +161,8 @@ class _AddExpenseState extends State<AddExpense> {
                         maxLength: 25,
                         controller: _titleController,
                         keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(labelText: "Title"),
+                        decoration: const InputDecoration(labelText: "Title",),
+
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
                             return 'Please input title.';
@@ -145,24 +173,26 @@ class _AddExpenseState extends State<AddExpense> {
                     ),
                     const SizedBox(width: 10),
                     Flexible(
-                        // width: 20,
-                        child: Container(
-                      margin: EdgeInsets.only(bottom: 12),
-                      child: DropdownButtonFormField<Categorys>(
-                        value: _selectCategory,
-                        items: Categorys.values.map((category) {
-                          return DropdownMenuItem<Categorys>(
-                            value: category,
-                            child: Text(category.toString().split('.').last),
-                          );
-                        }).toList(),
-                        onChanged: (Categorys? newValue) {
-                          setState(() {
-                            _selectCategory = newValue!;
-                          });
-                        },
-                      ),
-                    )),
+                      // width: 20,
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 12),
+                        child: DropdownButtonFormField<Categorys>(
+                          value: _selectCategory,
+                          items: Categorys.values.map((category) {
+                            return DropdownMenuItem<Categorys>(
+                              value: category,
+                              child: Text(category.toString().split('.').last),
+                            );
+                          }).toList(),
+                          onChanged: (Categorys? newValue) {
+                            setState(() {
+                              _selectCategory = newValue!;
+                            });
+                          },
+
+                        ),
+                      )
+                    ),
                   ],
                 ),
                 TextFormField(
@@ -188,8 +218,7 @@ class _AddExpenseState extends State<AddExpense> {
                     InkWell(
                       onTap: dateTimePick,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: Colors.black, width: 2),
@@ -214,8 +243,7 @@ class _AddExpenseState extends State<AddExpense> {
                         controller: _amountController,
                         keyboardType: TextInputType.number,
                         inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                              RegExp(r'^\d+\.?\d*')),
+                          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*')),
                         ],
                         decoration: const InputDecoration(
                           label: Text("Amount"),
@@ -247,22 +275,22 @@ class _AddExpenseState extends State<AddExpense> {
           style: ButtonStyle(
             padding: WidgetStateProperty.all(
                 const EdgeInsets.symmetric(horizontal: 35)),
-            backgroundColor: WidgetStateProperty.all(const Color(0xFF19BE00)),
+            backgroundColor: WidgetStateProperty.all(const Color(0xFF006CC5)),
             shape: WidgetStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
-                side: const BorderSide(color: Color(0xFF19BE00)),
+                side: const BorderSide(color: Color(0xFF006CC5)),
               ),
             ),
           ),
-          onPressed: onAdd,
+          onPressed: onEdit,
           label: const Text(
-            "Add",
+            "Edit",
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
           ),
           icon: const Icon(
-            Icons.add,
-            size: 25,
+            Icons.edit,
+            size: 20,
             color: Colors.white,
           ),
         ),

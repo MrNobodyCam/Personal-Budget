@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:personal_budget/screen/app_bar.dart';
 import 'package:personal_budget/screen/bottom_bar.dart';
 import 'package:personal_budget/screen/dashboard/category_chart.dart';

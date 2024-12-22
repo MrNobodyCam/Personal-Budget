@@ -33,7 +33,18 @@ class Balance {
   void removeExpense(Expense expense) {
     expenseNotifier.value = expenseNotifier.value - expense.amount;
   }
-
+  // void expenseBalance(){
+  //   expenseNotifier.value
+  // }
+  void expenseValueEdit(ListExpense listExpense) {
+    expenseNotifier.value = 0;
+    for (var expense in listExpense.expenseList) {
+      if (DateTime.now().month == expense.dateTime.month) {
+        expenseNotifier.value = expenseNotifier.value + expense.amount;
+      }
+    }
+    // expenseNotifier.value = newExpense + expenseNotifier.value;
+  }
   void expenseValue(ListExpense listExpense) {
     for (var expense in listExpense.expenseList) {
       if (DateTime.now().month == expense.dateTime.month) {

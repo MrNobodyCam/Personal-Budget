@@ -3,6 +3,8 @@ import 'package:personal_budget/model/expense.dart';
 import 'package:personal_budget/screen/transaction/transaction_screen.dart';
 import 'package:personal_budget/data/data.dart';
 
+import 'edit_expense.dart';
+
 class DetailExpense extends StatefulWidget {
   const DetailExpense({
     super.key,
@@ -213,7 +215,13 @@ class _DetailExpenseState extends State<DetailExpense> {
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                       side: BorderSide(color: Color(0xFF19BE00))))),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => EditExpense(expense: widget.expense,expenseIndex: widget.expenseIndex,),
+            );
+          },
           label: Text(
             "Edit",
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
