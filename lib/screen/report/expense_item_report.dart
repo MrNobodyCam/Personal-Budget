@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:personal_budget/model/expense.dart';
-import 'package:personal_budget/screen/transaction/detail_expense.dart';
+import 'package:personal_budget/screen/report/detail_expense_report.dart';
 
 class ExpenseItem extends StatefulWidget {
-  const ExpenseItem(
-      {super.key,
-      required this.expense,
-      required this.listExpense,
-      required this.balance,
-      required this.expenseIndex});
+  const ExpenseItem({super.key,required this.expense,required this.expenseIndex});
   final Expense expense;
-  final ListExpense listExpense;
   final int expenseIndex;
-  final Balance balance;
+
   @override
   State<ExpenseItem> createState() => _ExpenseItemState();
 }
@@ -42,14 +36,6 @@ class _ExpenseItemState extends State<ExpenseItem> {
     }
     return asset;
   }
-
-  // void removeExpense(int index) {
-  //   setState(() {
-  //     expenseList.removeExpense(index);
-  //   });
-  //   // initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -62,30 +48,26 @@ class _ExpenseItemState extends State<ExpenseItem> {
         ),
       ),
       color: Colors.white,
-      margin: const EdgeInsets.only(left: 13, right: 13, bottom: 10),
+      margin: const EdgeInsets.only(left: 13, right: 13,bottom: 10),
       child: InkWell(
-        onTap: () {
+        onTap: (){
           showDialog<String>(
               context: context,
               builder: (BuildContext context) => DetailExpense(
-                    expense: widget.expense,
-                    expenseIndex: widget.expenseIndex,
-                    // onRemoveExpense: ,
-                  ));
+                expense: widget.expense,
+                expenseIndex: widget.expenseIndex,
+                // onRemoveExpense: ,
+              ));
         },
         child: Container(
           padding: const EdgeInsets.all(15),
           child: Row(
             children: [
-              // CircleAvatar(
-              //   radius: 30,
-              //   backgroundImage: AssetImage(checkCategory()),
-              // ),
               Image.asset(
                 checkCategory(),
                 width: 50,
               ),
-              SizedBox(width: 13),
+              const SizedBox(width: 13),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -99,7 +81,7 @@ class _ExpenseItemState extends State<ExpenseItem> {
             ],
           ),
         ),
-      ),
+      )
     );
   }
 }

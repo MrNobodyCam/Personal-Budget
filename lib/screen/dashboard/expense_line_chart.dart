@@ -17,8 +17,8 @@ class _ExpenseLineChartState extends State<ExpenseLineChart> {
   double fri = 0;
   double sat = 0;
   double sun = 0;
-  double minY = 0; // Initial minY value
-  double maxY = 100;
+  double minY = 0;
+  double maxY = 0;
   @override
   void initState() {
     super.initState();
@@ -30,11 +30,10 @@ class _ExpenseLineChartState extends State<ExpenseLineChart> {
     sat = expenseList.checkSat();
     sun = expenseList.checkSun();
     List<double> expenses = [mon, tue, wed, thu, fri, sat, sun];
-    minY = expenses.reduce((a, b) => a < b ? a : b); // Get the min value
-    maxY = expenses.reduce((a, b) => a > b ? a : b); // Get the max value
+    minY = expenses.reduce((a, b) => a < b ? a : b);
+    maxY = expenses.reduce((a, b) => a > b ? a : b);
 
-    // Optionally add some padding to maxY for better visualization
-    maxY += 10;
+    maxY += 100;
   }
   @override
   Widget build(BuildContext context) {
@@ -55,6 +54,7 @@ class _ExpenseLineChartState extends State<ExpenseLineChart> {
         const SizedBox(height: 15),
         SizedBox(
           height: 300,
+          width: 300,
           child: LineChart(
             LineChartData(
               lineBarsData: [
@@ -136,6 +136,9 @@ class _ExpenseLineChartState extends State<ExpenseLineChart> {
                     },
                   ),
                 ),
+                rightTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false)
+                )
               ),
               gridData: FlGridData(
                 show: true,

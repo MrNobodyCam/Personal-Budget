@@ -52,8 +52,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
           ),
         ),
       ),
-      body: expenseList.overSpending.isEmpty? Center(
-        child: Text("No Notification Yet",style: TextStyle(fontSize: 18,color: Colors.grey),),
+      body: expenseList.overSpending.isEmpty? Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset('assets/icon/empty_notification.png',width: 150,),
+          SizedBox(height: 20,),
+          Center(
+            child: Text("No Notification Yet",style: TextStyle(fontSize: 18,color: Colors.grey,fontWeight: FontWeight.bold),),
+          )
+        ],
       ) : ListView.builder(
         itemCount: expenseList.overSpending.length,
         itemBuilder: (context, index) {

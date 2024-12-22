@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:personal_budget/screen/app_bar.dart';
 import 'package:personal_budget/screen/bottom_bar.dart';
-
 import '../../data/data.dart';
-import 'expense_list.dart';
+import 'expense_list_report.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -53,6 +52,34 @@ class CalendarButton extends StatefulWidget {
 }
 
 class _CalendarButtonState extends State<CalendarButton> {
+  final DateTime _selectedDate = expenseList.checkReport;
+  @override
+  void initState() {
+    super.initState();
+    print(expenseList.checkReport);
+  }
+  void dateTimePick() async {
+    DateTime? date = await showDatePicker(
+      context: context,
+      firstDate: DateTime(DateTime.now().year - 5),
+      lastDate: DateTime.now(),
+      initialDate: _selectedDate,
+    );
+
+    if (date != null) {
+      setState(() {
+        expenseList.checkReport = date;
+        Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => ReportScreen(),
+            transitionDuration: Duration.zero,
+            reverseTransitionDuration: Duration.zero,
+          ),
+        );
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -67,12 +94,16 @@ class _CalendarButtonState extends State<CalendarButton> {
           ),
           child: Row(
             children: [
-              const Text(
-                "No Date Selected",
-                style: TextStyle(fontSize: 15),
+              Text(
+                "${expenseList.checkReport.day}/${expenseList.checkReport.month}/${expenseList.checkReport.year}",
+                style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
               ),
               IconButton(
-                  onPressed: () {},
+                  onPressed: (){
+                    setState(() {
+                      dateTimePick();
+                    });
+                  },
                   icon: const Icon(
                     Icons.calendar_month,
                     size: 30,

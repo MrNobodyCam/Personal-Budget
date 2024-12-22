@@ -22,7 +22,7 @@ class _DatePickerState extends State<DatePicker> {
     DateTime? date = await showDatePicker(
       context: context,
       firstDate: DateTime(DateTime.now().year - 5),
-      lastDate: DateTime(DateTime.now().year + 5),
+      lastDate: DateTime(DateTime.now().year),
       initialDate: _selectedDate,
     );
 

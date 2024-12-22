@@ -23,11 +23,18 @@ class _ExpenseListState extends State<ExpenseList> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: filteredExpenses.isEmpty
-          ? const Center(
-        child: Text(
-          "No Expenses Found",
-          style: TextStyle(fontSize: 18, color: Colors.grey),
-        ),
+          ? Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("assets/icon/empty.png",width: 49,),
+            // SizedBox(height: 10,),
+            Text(
+              "No Expenses Found",
+              style: TextStyle(fontSize: 14, color: Colors.grey,fontWeight: FontWeight.bold),
+            ),
+          ],
+        )
       )
           : ListView.builder(
         itemCount: filteredExpenses.length,

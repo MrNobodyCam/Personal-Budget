@@ -88,7 +88,20 @@ class ListExpense {
   List<Expense> expenseList = [];
   List<Expense> overSpending = [];
   int checkCategory = 1;
+  DateTime checkReport = DateTime.now();
   // ListExpense(this.expenseList);
+
+  int checkReportValue() {
+    for (Expense expenseIndex in expenseList) {
+      if (expenseIndex.dateTime.day == checkReport.day &&
+          expenseIndex.dateTime.month == checkReport.month &&
+          expenseIndex.dateTime.year == checkReport.year) {
+        return 1;
+      }
+    }
+    return 0;
+  }
+
   void addExpense(Expense newExpense) {
     expenseList.add(newExpense);
     print(expenseList.length);
@@ -165,8 +178,10 @@ class ListExpense {
   double _calculateSumForDay(int dayIndex) {
     // String nowDate = DateFormat('EEEE').format(DateTime.now());
     DateTime today = DateTime.now();
-    DateTime startDate = today.subtract(Duration(days: today.weekday - (dayIndex) % 7));
-    DateTime endDate = startDate.add(Duration(days: 1)).subtract(Duration(milliseconds: 1));
+    DateTime startDate =
+        today.subtract(Duration(days: today.weekday - (dayIndex) % 7));
+    DateTime endDate =
+        startDate.add(Duration(days: 1)).subtract(Duration(milliseconds: 1));
     print("Start Date: ${startDate.toIso8601String()}");
     print("End Date: ${endDate.toIso8601String()}");
     double sumAmount = 0;

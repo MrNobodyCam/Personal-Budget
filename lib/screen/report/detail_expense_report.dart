@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_budget/model/expense.dart';
-import 'package:personal_budget/screen/transaction/transaction_screen.dart';
+import 'package:personal_budget/screen/report/report_screen.dart';
 import 'package:personal_budget/data/data.dart';
 
 class DetailExpense extends StatefulWidget {
@@ -187,9 +187,9 @@ class _DetailExpenseState extends State<DetailExpense> {
                 Navigator.pushReplacement(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) => TransactionScreen(),
-                    transitionDuration: Duration.zero, // No transition animation
-                    reverseTransitionDuration: Duration.zero, // No reverse animation
+                    pageBuilder: (context, animation, secondaryAnimation) => ReportScreen(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
                   ),
                 );
               });
