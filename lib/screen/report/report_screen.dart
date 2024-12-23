@@ -28,7 +28,7 @@ class _ReportScreenState extends State<ReportScreen> {
             height: 20,
           ),
           Text(
-            "Report Generator",
+            "Report by Day",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 32,
