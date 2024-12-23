@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:personal_budget/screen/dashboard/dashboard_screen.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:personal_budget/model/expense.dart';
 import '../../data/data.dart';
@@ -96,6 +98,34 @@ class CalendarButton extends StatefulWidget {
 }
 
 class _CalendarButtonState extends State<CalendarButton> {
+  final DateTime _selectedDate = expenseList.checkPieChart;
+  @override
+  void initState() {
+    super.initState();
+    print(expenseList.checkPieChart);
+  }
+  void dateTimePick() async {
+    DateTime? date = await showDatePicker(
+      context: context,
+      firstDate: DateTime(DateTime.now().year - 5),
+      lastDate: DateTime.now(),
+      initialDate: _selectedDate,
+    );
+
+    if (date != null) {
+      setState(() {
+        expenseList.checkPieChart = date;
+        Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => DashboardScreen(),
+            transitionDuration: Duration.zero,
+            reverseTransitionDuration: Duration.zero,
+          ),
+        );
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -105,11 +135,10 @@ class _CalendarButtonState extends State<CalendarButton> {
           margin: const EdgeInsets.only(right: 20),
           child: InkWell(
             onTap: () {
-              // Implement date picker functionality here
-              print("Date picker tapped");
+              dateTimePick();
             },
-            child: const Text(
-              "Dec / 2024",
+            child: Text(
+              DateFormat('yMMMM').format(_selectedDate),
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
             ),
           ),

@@ -100,6 +100,7 @@ class ListExpense {
   List<Expense> overSpending = [];
   int checkCategory = 1;
   DateTime checkReport = DateTime.now();
+  DateTime checkPieChart = DateTime.now();
   // ListExpense(this.expenseList);
 
   int checkReportValue() {
@@ -141,7 +142,7 @@ class ListExpense {
     double totalAmount = 0;
     for (var expense in expenseList) {
       if (expense.category == category &&
-          DateTime.now().month == expense.dateTime.month) {
+          checkPieChart.month == expense.dateTime.month) {
         totalAmount += expense.amount;
       }
     }
