@@ -34,48 +34,38 @@ class _AddExpenseState extends State<AddExpense> {
   }
 
   void onAdd() {
-    if(sharedBalance.balanceNotifier.value == 0){
+    if (_formKey.currentState!.validate()) {
+      final expense = Expense(
+        title: _titleController.text,
+        description: _descriptionController.text,
+        category: _selectCategory,
+        amount: double.parse(_amountController.text),
+        dateTime: selectDate,
+      );
+      _addExpense(expense);
+      print(
+          "title:${expense.title}, Description:${expense.description}, Category:${expense.category}, Amount:${expense.amount}, DateTime:${expense.dateTime}");
+
       Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TransactionScreen(),
+        ),
+      );
       QuickAlert.show(
         context: context,
-        type: QuickAlertType.error,
-        title: 'Oops...',
-        text: 'Please set this month\'s balance before adding an expense.',
+        type: QuickAlertType.success,
+        // title: 'Oops...',
+        text: 'Your expense has been added successfully.',
       );
-    }else{
-      if (_formKey.currentState!.validate()) {
-        final expense = Expense(
-          title: _titleController.text,
-          description: _descriptionController.text,
-          category: _selectCategory,
-          amount: double.parse(_amountController.text),
-          dateTime: selectDate,
-        );
-        _addExpense(expense);
-        print(
-            "title:${expense.title}, Description:${expense.description}, Category:${expense.category}, Amount:${expense.amount}, DateTime:${expense.dateTime}");
 
-        Navigator.pop(context);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TransactionScreen(),
-          ),
-        );
-        QuickAlert.show(
-          context: context,
-          type: QuickAlertType.success,
-          // title: 'Oops...',
-          text: 'Your expense has been added successfully.',
-        );
-
-        if (sharedBalance.overSpending()) {
-          LocalNotification.showSimpleNotification(
-              title: "Budget Alert!",
-              body: "You’ve exceeded your budget.",
-              payload: "payload");
-          expenseList.addOverSpend(expense);
-        }
+      if (sharedBalance.overSpending()) {
+        LocalNotification.showSimpleNotification(
+            title: "Budget Alert!",
+            body: "You’ve exceeded your budget.",
+            payload: "payload");
+        expenseList.addOverSpend(expense);
       }
     }
   }

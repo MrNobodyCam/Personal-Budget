@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:personal_budget/data/data.dart';
 import 'package:personal_budget/screen/transaction/set_spending.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'add_expense.dart';
 
 class BalanceCard extends StatefulWidget {
@@ -114,10 +116,19 @@ class _BalanceCardState extends State<BalanceCard> {
                   width: 124,
                   child: ElevatedButton(
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AddExpense(),
-                      );
+                      if(sharedBalance.balanceNotifier.value == 0){
+                        QuickAlert.show(
+                          context: context,
+                          type: QuickAlertType.error,
+                          title: 'Oops...',
+                          text: 'Please set this month\'s balance before adding an expense.',
+                        );
+                      }else{
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AddExpense(),
+                        );
+                      }
                       // LocalNotification.showSimpleNotification(title: "Budget Alert!", body: "You’ve exceeded your budget.", payload: "payload");
                     },
                     style: ElevatedButton.styleFrom(
