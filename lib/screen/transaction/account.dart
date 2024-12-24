@@ -46,7 +46,7 @@ class _BalanceCardState extends State<BalanceCard> {
                 const Text(
                   "This Month Balance",
                   style: TextStyle(
-                      fontSize: 17,
+                      fontSize: 16,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
@@ -56,7 +56,7 @@ class _BalanceCardState extends State<BalanceCard> {
                     return Text(
                       "\$ ${sharedBalance.balanceNotifier.value.toStringAsFixed(2)} ",
                       style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 28,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     );
@@ -94,7 +94,7 @@ class _BalanceCardState extends State<BalanceCard> {
                 Text(
                   "Expenses",
                   style: TextStyle(
-                      fontSize: 17,
+                      fontSize: 16,
                       color: color,
                       fontWeight: FontWeight.bold),
                 ),
@@ -104,7 +104,7 @@ class _BalanceCardState extends State<BalanceCard> {
                     return Text(
                       "\$ ${sharedBalance.expenseNotifier.value.toStringAsFixed(2)} ",
                       style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 28,
                           color: color,
                           fontWeight: FontWeight.bold),
                     );
