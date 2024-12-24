@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:personal_budget/model/expense.dart';
 import 'package:personal_budget/screen/transaction/transaction_screen.dart';
 import 'package:personal_budget/data/data.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 import '../../local_notification.dart';
 
@@ -32,32 +34,48 @@ class _AddExpenseState extends State<AddExpense> {
   }
 
   void onAdd() {
-    if (_formKey.currentState!.validate()) {
-      final expense = Expense(
-        title: _titleController.text,
-        description: _descriptionController.text,
-        category: _selectCategory,
-        amount: double.parse(_amountController.text),
-        dateTime: selectDate,
-      );
-      _addExpense(expense);
-      print(
-          "title:${expense.title}, Description:${expense.description}, Category:${expense.category}, Amount:${expense.amount}, DateTime:${expense.dateTime}");
-
+    if(sharedBalance.balanceNotifier.value == 0){
       Navigator.pop(context);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => TransactionScreen(),
-        ),
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        title: 'Oops...',
+        text: 'Please set this month\'s balance before adding an expense.',
       );
+    }else{
+      if (_formKey.currentState!.validate()) {
+        final expense = Expense(
+          title: _titleController.text,
+          description: _descriptionController.text,
+          category: _selectCategory,
+          amount: double.parse(_amountController.text),
+          dateTime: selectDate,
+        );
+        _addExpense(expense);
+        print(
+            "title:${expense.title}, Description:${expense.description}, Category:${expense.category}, Amount:${expense.amount}, DateTime:${expense.dateTime}");
 
-      if (sharedBalance.overSpending()) {
-        LocalNotification.showSimpleNotification(
-            title: "Budget Alert!",
-            body: "You’ve exceeded your budget.",
-            payload: "payload");
-        expenseList.addOverSpend(expense);
+        Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TransactionScreen(),
+          ),
+        );
+        QuickAlert.show(
+          context: context,
+          type: QuickAlertType.success,
+          // title: 'Oops...',
+          text: 'Your expense has been added successfully.',
+        );
+
+        if (sharedBalance.overSpending()) {
+          LocalNotification.showSimpleNotification(
+              title: "Budget Alert!",
+              body: "You’ve exceeded your budget.",
+              payload: "payload");
+          expenseList.addOverSpend(expense);
+        }
       }
     }
   }
