@@ -205,6 +205,7 @@ class ListExpense {
         }
       }
     }
+    return sumAmount;
     // for (var expense in expenseList) {
     //   if (expense.dateTime.isAfter(startDate) &&
     //       expense.dateTime.isBefore(endDate)) {
@@ -226,8 +227,6 @@ class ListExpense {
     //     }
     //   }
     // }
-
-    return sumAmount;
   }
   // double checkSun(){
   //   var nowDate = DateFormat('EEEE').format(DateTime.now());

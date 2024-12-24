@@ -42,7 +42,7 @@ class _BalanceCardState extends State<BalanceCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Text(
-                  "Monthly Balance",
+                  "This Month Balance",
                   style: TextStyle(
                       fontSize: 17,
                       color: Colors.white,
